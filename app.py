@@ -67,6 +67,17 @@ def submit_form():
     resume_attachment = request.form['resume_attachment']
     resume_link = request.form['resume_link']
 
+    custom_percentagecgpa = request.form['custom_percentagecgpa']
+    custom_year_of_passing = request.form['custom_year_of_passing']
+    custom_highest_education = request.form['custom_highest_education']
+
+    custom_company = request.form['custom_company']
+    custom_designation = request.form['custom_designation']
+    custom_from = request.form['custom_from']
+    custom_to = request.form['custom_to']
+    custom_total_experience = request.form['custom_total_experience']
+
+
     # Prepare the data to be sent to the API  
     form_data = {
         "applicant_name": applicant_name,
@@ -80,7 +91,19 @@ def submit_form():
         "lower_range": lower_range,
         "upper_range": upper_range,
         "resume_attachment": resume_attachment,
-        "resume_link": resume_link
+        "resume_link": resume_link,
+
+        "custom_percentagecgpa": custom_percentagecgpa,
+        "custom_year_of_passing": custom_year_of_passing,
+        "custom_highest_education": custom_highest_education,
+
+        "custom_company": custom_company,
+        "custom_designation": custom_designation,
+        "custom_from": custom_from,
+        "custom_to": custom_to,
+        "custom_total_experience": custom_total_experience,
+
+
     }
 
     # Send POST request to the API   
@@ -90,7 +113,8 @@ def submit_form():
     if response.status_code == 200:
         flash('FORM SUBMITTED SUCCESSFULLY !', 'success')
     else:
-        flash('Error: Please check the form and try again')
+        # flash('Error: Please check the form and try again')
+        flash(f'Error: {response.status_code} - {response.text}', 'error')
 
     # Redirect back to the home page or success page
     return redirect(url_for('home'))

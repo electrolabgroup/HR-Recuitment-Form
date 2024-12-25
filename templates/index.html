@@ -146,8 +146,15 @@
       overflow-y: auto; /* Add a scrollbar if the content exceeds the height */
     }
 
-
     
+    #custom_reason_for_leaving {
+      text-align: left !important; /* Override global text alignment */
+      height: 100px; /* Set the desired height */
+      padding: 13px 22px; /* Retain global padding */
+      line-height: normal; /* Ensure text appears naturally */
+      vertical-align: top; /* Align text to the top */
+      overflow-y: auto; /* Add a scrollbar if the content exceeds the height */
+    }
 
     .formbold-form-input {
       text-align: center;
@@ -408,6 +415,122 @@
           </div>
       </div>
 
+      <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+      
+      <h2 class="formbold-form-title">Educational Qualification      </h2>
+
+        <div class="formbold-input-flex">
+
+          <div>
+            <label for="custom_highest_education" class="formbold-form-label">Highest Education* </label>
+            <select name="custom_highest_education" id="custom_highest_education" class="formbold-form-input">
+                <option value="Under Graduation">Under Graduation</option>
+                <option value="Graduation">Graduation</option>
+                <option value="Post Graduation">Post Graduation</option>
+            </select>
+        </div>
+        
+          
+        </div>
+
+        <div class="formbold-input-flex">
+          
+          <div>
+            <label for="custom_percentagecgpa" class="formbold-form-label"> Percentage/CGPA* </label>
+            <input
+                type="text"
+                name="custom_percentagecgpa"
+                id="custom_percentagecgpa"
+                class="formbold-form-input"
+                oninput="validatePercentageInput(this)" />
+        </div>
+          <div>
+            <label for="custom_year_of_passing" class="formbold-form-label"> Year of Passing* </label>
+            <input
+                type="number"
+                name="custom_year_of_passing"
+                id="custom_year_of_passing"
+                class="formbold-form-input"
+                oninput="limitYearLength(this, 4)" />
+        </div>
+        </div>
+      
+      <!-- 2------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+      <h2 class="formbold-form-title">Previous Work Experience</h2>
+
+      <div class="formbold-input-flex">
+
+        <div>
+          <label for="custom_company" class="formbold-form-label"> Company* </label>   
+          <input
+            type="text"
+            name="custom_company"
+            id="custom_company"
+            class="formbold-form-input"
+          />
+        </div>
+
+        <div>
+          <label for="custom_designation" class="formbold-form-label"> Designation* </label>  
+          <input
+            type="text"
+            name="custom_designation"
+            id="custom_designation"
+            class="formbold-form-input"
+          />
+        </div>
+      </div>
+
+      <div class="formbold-input-flex">
+        
+        <div>
+          <label for="custom_from" class="formbold-form-label"> From* </label>
+          <input
+            type="date"
+            name="custom_from"
+            id="custom_from"
+            class="formbold-form-input"
+          />
+        </div>
+        <div>
+          <label for="custom_to" class="formbold-form-label"> To* </label>
+          <input
+            type="date"
+            name="custom_to"
+            id="custom_to"
+            class="formbold-form-input"
+            />
+        </div>
+
+        <div>
+          <label for="custom_total_experience" class="formbold-form-label"> Total Experience* </label>
+          <input
+            type="number"
+            name="custom_total_experience"
+            id="custom_total_experience"
+            class="formbold-form-input"
+            />
+        </div>
+      </div>
+
+
+      </div>
+
+      <div class="formbold-input-flex-full">
+        <div>
+            <label for="custom_reason_for_leaving" class="formbold-form-label">Reason For Leaving*</label>
+            <textarea
+                name="custom_reason_for_leaving"
+                id="custom_reason_for_leaving"
+                class="formbold-form-input"
+                placeholder="Write your Reason here..."
+            ></textarea>
+        </div>
+    </div>
+    
+      <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
         <h2 class="formbold-form-title">Salary Expectation</h2>
 
         <div class="formbold-input-flex">
@@ -463,6 +586,55 @@
  
   
   </body>
+
+  <script>
+    function limitYearLength(input, maxLength) {
+        let value = input.value;
+        if (value.length > maxLength) {
+            input.value = value.slice(0, maxLength);
+        }
+    }
+</script>
+
+<!-- ....................... -->
+
+<script>
+  function validatePercentageInput(input) {
+      let value = input.value;
+      
+      const regex = /^(\d+(\.\d+)?%?)$/;
+
+      if (regex.test(value)) {
+          if (value.includes('%') && value.split('%')[0] === '') {
+              input.value = value.slice(0, -1); 
+          }
+      } else {
+          input.value = value.slice(0, -1);
+      }
+  }
+</script>
+
+<script>
+  function validatePercentageInput(input) {
+      let value = input.value;
+
+      if (value.length > 5 || (value.split('%').length > 2)) {
+          input.value = value.slice(0, -1);
+          return;
+      }
+
+      const regex = /^[0-9]{1,4}(\.[0-9]{0,2})?%?$/;
+
+      if (regex.test(value)) {
+          if (value.includes('%') && value.split('%')[0].length === 0) {
+              input.value = value.slice(0, -1); 
+          }
+      } else {
+          input.value = value.slice(0, -1);
+      }
+  }
+</script>
+
 <script>
   function toggleButton() {
       const checkbox = document.getElementById('enableSubmit');
