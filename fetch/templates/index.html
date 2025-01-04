@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicants</title>
+</head>
+<body>
+    <h1>Applicants</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Applicant Name</th>
+                <th>Job Title</th>
+                <th>Resume File Name</th>
+                <th>Resume View</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for applicant in applicants %}
+                <tr>
+                    <td>{{ applicant.applicant_name }}</td>
+                    <td>{{ applicant.job_title }}</td>
+                    <td>
+                        {% if applicant.resume_attachment %}
+                            {{ applicant.resume_attachment }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if applicant.resume_url %}
+                            <a href="{{ applicant.resume_url }}" target="_blank">View Resume</a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

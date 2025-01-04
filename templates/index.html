@@ -266,6 +266,7 @@
       font-size: 1em;
   }
 </style>
+
 <body>
     <header>
         <div>Personal Information Form</div>
@@ -285,8 +286,8 @@
       {% endwith %}
   </div>
   
-    <form action="{{ url_for('submit_form') }}" method="POST">
-      <h2 class="formbold-form-title">Candidate Details</h2>
+    <form action="{{ url_for('submit_form') }}" method="POST" enctype="multipart/form-data">
+    <h2 class="formbold-form-title">Candidate Details</h2>
   
         <div class="formbold-input-flex">
           <div>
@@ -350,20 +351,6 @@
             />
           </div>
 
-        <div>
-          <label for="status" class="formbold-form-label">Status*</label>
-          <select name="status" id="status" class="formbold-form-input">
-              <option value="Open" selected>Open</option>
-              <option value="Replied">Replied</option>
-              <option value="Rejected">Rejected</option>
-              <option value="Hold">Hold</option>
-              <option value="Accepted">Accepted</option>
-          </select>
-      </div>
-
-          </div>
-  
-        <div class="formbold-input-flex">
           <div>
             <label for="country" class="formbold-form-label">Country</label>
             <input
@@ -375,6 +362,23 @@
               readonly
             />
           </div>
+
+          </div>
+  
+        <div class="formbold-input-flex">
+
+          <div>
+            <label for="status" class="formbold-form-label"></label>
+            <input
+              type="hidden"
+              name="status"
+              id="status"
+              class="formbold-form-input"
+              value="Open"
+              readonly
+            />
+          </div>
+          
         
       </div>
       
@@ -394,15 +398,17 @@
       
       <div class="formbold-input-flex-full">
           <div>
-              <label for="resume_attachment" class="formbold-form-label">Resume Attachment</label>
-              <input
-                  type="file"
-                  name="resume_attachment"
-                  id="resume_attachment"
-                  class="formbold-form-input"
-                  accept=".pdf, .doc, .docx, .jpg, .jpeg, .png" 
-              />
-          </div>
+            <label for="resume_attachment" class="formbold-form-label">Resume Attachment 
+              <!-- <div class="danger ">⚠️ PDF Format only </div> -->
+            </label>
+            <input
+                type="file"
+                name="resume_attachment"
+                id="resume_attachment"
+                class="formbold-form-input"
+                accept=".pdf"
+            />
+        </div>
           <br>
           <div>
             <label for="resume_link" class="formbold-form-label">Resume Link </label>
@@ -417,118 +423,185 @@
 
       <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
       
-      <h2 class="formbold-form-title">Educational Qualification      </h2>
-
-        <div class="formbold-input-flex">
-
-          <div>
-            <label for="custom_highest_education" class="formbold-form-label">Highest Education* </label>
-            <select name="custom_highest_education" id="custom_highest_education" class="formbold-form-input">
-                <option value="Under Graduation">Under Graduation</option>
-                <option value="Graduation">Graduation</option>
-                <option value="Post Graduation">Post Graduation</option>
-            </select>
-        </div>
-        
-          
-        </div>
-
-        <div class="formbold-input-flex">
-          
-          <div>
-            <label for="custom_percentagecgpa" class="formbold-form-label"> Percentage/CGPA* </label>
-            <input
-                type="text"
-                name="custom_percentagecgpa"
-                id="custom_percentagecgpa"
-                class="formbold-form-input"
-                oninput="validatePercentageInput(this)" />
-        </div>
-          <div>
-            <label for="custom_year_of_passing" class="formbold-form-label"> Year of Passing* </label>
-            <input
-                type="number"
-                name="custom_year_of_passing"
-                id="custom_year_of_passing"
-                class="formbold-form-input"
-                oninput="limitYearLength(this, 4)" />
-        </div>
-        </div>
-      
-      <!-- 2------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-
-      <h2 class="formbold-form-title">Previous Work Experience</h2>
-
-      <div class="formbold-input-flex">
-
-        <div>
-          <label for="custom_company" class="formbold-form-label"> Company* </label>   
-          <input
-            type="text"
-            name="custom_company"
-            id="custom_company"
-            class="formbold-form-input"
-          />
-        </div>
-
-        <div>
-          <label for="custom_designation" class="formbold-form-label"> Designation* </label>  
-          <input
-            type="text"
-            name="custom_designation"
-            id="custom_designation"
-            class="formbold-form-input"
-          />
-        </div>
-      </div>
-
-      <div class="formbold-input-flex">
-        
-        <div>
-          <label for="custom_from" class="formbold-form-label"> From* </label>
-          <input
-            type="date"
-            name="custom_from"
-            id="custom_from"
-            class="formbold-form-input"
-          />
-        </div>
-        <div>
-          <label for="custom_to" class="formbold-form-label"> To* </label>
-          <input
-            type="date"
-            name="custom_to"
-            id="custom_to"
-            class="formbold-form-input"
-            />
-        </div>
-
-        <div>
-          <label for="custom_total_experience" class="formbold-form-label"> Total Experience* </label>
-          <input
-            type="number"
-            name="custom_total_experience"
-            id="custom_total_experience"
-            class="formbold-form-input"
-            />
-        </div>
-      </div>
-
-
-      </div>
+      <h2 class="formbold-form-title">Academic Details</h2>
 
       <div class="formbold-input-flex-full">
-        <div>
-            <label for="custom_reason_for_leaving" class="formbold-form-label">Reason For Leaving*</label>
-            <textarea
-                name="custom_reason_for_leaving"
-                id="custom_reason_for_leaving"
-                class="formbold-form-input"
-                placeholder="Write your Reason here..."
-            ></textarea>
-        </div>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;" id="academicTable">
+          <thead>
+            <tr>
+              <th>School/University</th>
+              <th>Qualification</th>
+              <th>Level</th>
+              <th>Year of Passing</th>
+              <th>% /Mark/Grade</th>
+              <th>Major Subjects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  name="school_univ[]"
+                  placeholder="Enter Institute Name"
+                  style="width: 100%; border: none; outline: none;"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="qualification[]"
+                  placeholder="Enter Qualification"
+                  style="width: 100%; border: none; outline: none;"
+                />
+              </td>
+              <td>
+                <select name="level[]" style="width: 100%; border: none; outline: none;">
+                  <option value="Graduate">Graduate</option>
+                  <option value="Post Graduate">Post Graduate</option>
+                  <option value="Under Graduate">Under Graduate</option>
+                </select>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  name="year_of_passing[]"
+                  placeholder="Enter Year"
+                  style="width: 100%; border: none; outline: none;"
+                  maxlength="4"
+                  oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);"
+                />
+              </td>
+              
+              <td>
+                <input
+                  type="number"
+                  name="class_per[]"
+                  placeholder="Enter %"
+                  style="width: 100%; border: none; outline: none;"
+                  step="0.01"
+                />
+              </td>
+              
+              <td>
+                <input
+                  type="text"
+                  name="maj_opt_subj[]"
+                  placeholder="Enter Major Subject Name"
+                  style="width: 100%; border: none; outline: none;"
+                />
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top: 10px; text-align: center;">
+        <button type="button" onclick="addDegreeRow()" style="padding: 8px 12px; cursor: pointer;">Add Degree</button>
+      </div>
+
+      <!-- 2------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+      <h2 class="formbold-form-title">Previous Work Experience</h2>
+
+      <div class="formbold-input-flex-full">
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;" id="ExperienceTable">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Designation</th>
+                    <th>Salary</th>
+                    <th>Address</th>
+                    <th>Contact</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Total Experience</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input
+                            type="text"
+                            name="company_name[]"
+                            placeholder="Enter Company Name"
+                            style="width: 100%; border: none; outline: none;"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="designation[]"
+                            placeholder="Enter Designation"
+                            style="width: 100%; border: none; outline: none;"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="number"
+                            name="salary[]"
+                            placeholder="Enter Salary"
+                            style="width: 100%; border: none; outline: none;"
+                            maxlength="8"
+                            oninput="if(this.value.length > 4) this.value = this.value.slice(0, 8);"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="address[]"
+                            placeholder="Enter Address"
+                            style="width: 100%; border: none; outline: none;"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            type="number"
+                            name="contact[]"
+                            placeholder="Enter Contact Number"
+                            style="width: 100%; border: none; outline: none;"
+                            maxlength="13"
+                            oninput="if(this.value.length > 4) this.value = this.value.slice(0, 13);"
+                        />
+                    </td>
+                    <td>
+                      <input
+                          type="date"
+                          name="custom_from[]"
+                          id="custom_from"
+                          placeholder="Enter From Date"
+                          style="width: 100%; border: none; outline: none;"
+                          onchange="validateDates()"
+                      />
+                  </td>
+                  <td>
+                      <input
+                          type="date"
+                          name="custom_to[]"
+                          id="custom_to"
+                          placeholder="Enter To Date "
+                          style="width: 100%; border: none; outline: none;"
+                          onchange="validateDates()"
+                      />
+                  </td>
+                    <td>
+                      <input
+                          type="text"
+                          name="total_experience[]"
+                          placeholder="Enter Total Experience"
+                          style="width: 100%; border: none; outline: none;"
+                      />
+                  </td>
+                    
+                </tr>
+            </tbody>
+        </table>
     </div>
-    
+    <div style="margin-top: 10px; text-align: center;">
+      <button type="button" onclick="addExperienceRow()" style="padding: 8px 12px; cursor: pointer;">Add Experience</button>
+    </div>
+
+      <!-- 2------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+     
       <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
         <h2 class="formbold-form-title">Salary Expectation</h2>
@@ -572,7 +645,6 @@
               />
           </div>
         </div>
-        <!-- <div class="danger ">⚠️ The form is uneditable, make sure you have entered correct details </div> -->
 
         <label>
             <input type="checkbox" id="enableSubmit" onclick="toggleButton()"> I agree to the terms and conditions <a href="/terms" target="_blank">Read here</a>
@@ -595,7 +667,154 @@
         }
     }
 </script>
+<!-- ............................................................................................ -->
 
+<script>
+  function addExperienceRow() {
+    const table = document.getElementById('ExperienceTable').getElementsByTagName('tbody')[0];
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>
+            <input
+                type="text"
+                name="company_name[]"
+                placeholder="Enter Company Name"
+                style="width: 100%; border: none; outline: none;"
+            />
+        </td>
+        <td>
+            <input
+                type="text"
+                name="designation[]"
+                placeholder="Enter Designation"
+                style="width: 100%; border: none; outline: none;"
+            />
+        </td>
+        <td>
+            <input
+                type="number"
+                name="salary[]"
+                placeholder="Enter Salary"
+                style="width: 100%; border: none; outline: none;"
+                maxlength="8"
+                oninput="if(this.value.length > 4) this.value = this.value.slice(0, 8);"
+            />
+        </td>
+        <td>
+            <input
+                type="text"
+                name="address[]"
+                placeholder="Enter Address"
+                style="width: 100%; border: none; outline: none;"
+            />
+        </td>
+        <td>
+            <input
+                type="number"
+                name="contact[]"
+                placeholder="Enter Contact Number"
+                style="width: 100%; border: none; outline: none;"
+                maxlength="13"
+                oninput="if(this.value.length > 4) this.value = this.value.slice(0, 13);"
+            />
+        </td>
+        <td>
+          <input
+              type="date"
+              name="custom_from[]"
+              id="custom_from"
+              placeholder="Enter From Date"
+              style="width: 100%; border: none; outline: none;"
+              onchange="validateDates()"
+          />
+      </td>
+      <td>
+          <input
+              type="date"
+              name="custom_to[]"
+              id="custom_to"
+              placeholder="Enter To Date "
+              style="width: 100%; border: none; outline: none;"
+              onchange="validateDates()"
+          />
+      </td>
+        <td>
+          <input
+              type="text"
+              name="total_experience[]"
+              placeholder="Enter Total Experience"
+              style="width: 100%; border: none; outline: none;"
+          />
+      </td>
+    `;
+    table.appendChild(newRow);
+}
+</script>
+<!-- ....................... -->
+
+<!-- ....................... -->
+<script>
+  function addDegreeRow() {
+    const table = document.getElementById('academicTable').getElementsByTagName('tbody')[0];
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>
+            <input
+                type="text"
+                name="school_univ[]"
+                placeholder="Enter Institute Name"
+                style="width: 100%; border: none; outline: none;"
+            />
+        </td>
+        <td>
+            <input
+                type="text"
+                name="qualification[]"
+                placeholder="Enter Qualification"
+                style="width: 100%; border: none; outline: none;"
+            />
+        </td>
+        <td>
+            <select name="level[]" style="width: 100%; border: none; outline: none;">
+              <option value="Graduate">Graduate</option>
+              <option value="Post Graduate">Post Graduate</option>
+              <option value="Under Graduate">Under Graduate</option>
+            </select>
+        </td>
+        <td>
+          <input
+            type="number"
+            name="year_of_passing[]"
+            placeholder="Enter Year"
+            style="width: 100%; border: none; outline: none;"
+            maxlength="4"
+            oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);"
+          />
+        </td>
+
+        <td>
+                <input
+                  type="number"
+                  name="class_per[]"
+                  placeholder="Enter %"
+                  style="width: 100%; border: none; outline: none;"
+                  step="0.01"
+                />
+              </td>
+        <td>
+            <input
+                type="text"
+                name="maj_opt_subj[]"
+                placeholder="Enter Major Subject Name"
+                style="width: 100%; border: none; outline: none;"
+            />
+        </td>
+        
+    `;
+    table.appendChild(newRow);
+  }
+  </script>
+  
 <!-- ....................... -->
 
 <script>
@@ -736,5 +955,32 @@ document.addEventListener('click', (event) => {
           input.value = input.value.slice(0, maxLength);
       }
   }
+</script>
+
+<script>
+  function validateDates() {
+      // Get the input fields
+      const fromDate = document.getElementById('custom_from');
+      const toDate = document.getElementById('custom_to');
+      
+      // Get the current date (today)
+      const currentDate = new Date();
+      const today = currentDate.toISOString().split('T')[0];  // Format as YYYY-MM-DD
+
+      // Check if the "from" date exceeds the current date
+      if (fromDate.value && fromDate.value > today) {
+          alert('From date cannot exceed the current date.');
+          fromDate.value = '';  // Clear the input if invalid
+          fromDate.focus();  // Focus back to the input field
+      }
+
+      // Check if the "to" date exceeds the current date
+      if (toDate.value && toDate.value > today) {
+          alert('To date cannot exceed the current date.');
+          toDate.value = '';  // Clear the input if invalid
+          toDate.focus();  // Focus back to the input field
+      }
+  }
+
 </script>
 </html>
